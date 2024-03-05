@@ -144,7 +144,8 @@ public class Main {
     }
 }
 ```
-![12](https://github.com/AndDemon/Grisenkoproject/assets/115999885/d82908ec-5cbe-4e55-bb00-2ad165232ad9)
+
+![5](https://github.com/AndDemon/Grisenkoproject/assets/115999885/59e83cd4-73f5-4055-8706-b014cca65141)
 
 
 ```java
