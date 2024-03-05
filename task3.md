@@ -5,6 +5,8 @@
 Розширити ієрархію інтерфейсом "фабрикованих" об'єктів, що представляє набір методів для відображення результатів обчислень.
 Реалізувати ці методи виведення результатів у текстовому виде.
 Розробити тареалізувати інтерфейс для "фабрикуючого" методу.
+
+
 ```java
 package org.example;
 import java.io.Serializable;
@@ -57,6 +59,7 @@ public class Calc implements Serializable, CalcDisplay {
     }
 }
 ```
+
 ```java
 package org.example;
 
@@ -86,6 +89,7 @@ public class Problem_Solver{
     }
 }
 ```
+
 ```java
 package org.example;
 import java.io.*;
@@ -135,6 +139,8 @@ public class Main {
     }
 }
 ```
+![12](https://github.com/AndDemon/Grisenkoproject/assets/115999885/d82908ec-5cbe-4e55-bb00-2ad165232ad9)
+
 ```java
 package org.example;
 
@@ -143,6 +149,7 @@ public interface CalcDisplay {
     void displayResult(Calc data);
 }
 ```
+
 ```java
 package org.example;
 
@@ -150,6 +157,7 @@ public interface CalcFactory {
     Calc createCalc(double parameter1, double parameter2);
 }
 ```
+
 ```java
 package org.example;
 
