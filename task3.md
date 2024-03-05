@@ -7,6 +7,7 @@
 Розробити тареалізувати інтерфейс для "фабрикуючого" методу.
 
 
+
 ```java
 package org.example;
 import java.io.Serializable;
@@ -64,6 +65,7 @@ public class Calc implements Serializable, CalcDisplay {
 
 ```
 
+
 ```java
 package org.example;
 
@@ -93,6 +95,7 @@ public class Solv{
     }
 }
 ```
+
 
 ```java
 package org.example;
@@ -159,6 +162,7 @@ public interface CalcDisplay {
 }
 ```
 
+
 ```java
 package org.example;
 
@@ -168,6 +172,7 @@ public interface CalcFactory {
 }
 
 ```
+
 
 ```java
 package org.example;
