@@ -81,25 +81,25 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Створення Problem_Solver
+        // Створення Solv
         Solv solver = new Solv(60, 23);
 
         // Виклик методу solve
         solver.solve();
 
         // Серіалізація
-        serializeObject(solver.getData(), "data.ser");
+        saveObject(solver.getData(), "data.ser");
 
         // Десеріалізація
-        Calc restoredData = deserializeObject("data.ser");
+        Calc restoredData = loadObject("data.ser");
 
         // Вивід результатів
-        System.out.println("Параметр 1: " + restoredData.getParameter1());
-        System.out.println("Параметр 2: " + restoredData.getParameter2());
-        System.out.println("Результат: " + restoredData.getResult());
+        System.out.println("Parameter 1: " + restoredData.getA());
+        System.out.println("Parameter 2: " + restoredData.getB());
+        System.out.println("Output: " + restoredData.getOutput());
     }
 
-    private static void serializeObject(Calc data, String fileName) {
+    private static void saveObject(Calc data, String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             outputStream.writeObject(data);
         } catch (IOException e) {
@@ -107,7 +107,7 @@ public class Main {
         }
     }
 
-    private static Calc deserializeObject(String fileName) {
+    private static Calc loadObject(String fileName) {
         Calc data = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
             data = (Calc) inputStream.readObject();
