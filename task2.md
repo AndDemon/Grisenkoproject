@@ -118,7 +118,8 @@ public class Main {
     }
 }
 ```
-![1](https://github.com/AndDemon/Grisenkoproject/assets/115999885/f2ec7ab8-576f-4de1-b24a-a7720ec5e832)
+
+![3](https://github.com/AndDemon/Grisenkoproject/assets/115999885/6ac257fa-89c1-4e17-b729-431cf028b1ca)
 
 Виконати індивідуальне завдання згідно номеру в списку:
 
