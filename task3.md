@@ -146,6 +146,7 @@ public class Main {
 }
 ```
 ![12](https://github.com/AndDemon/Grisenkoproject/assets/115999885/d82908ec-5cbe-4e55-bb00-2ad165232ad9)
+
 Виведення результатів
 ```java
 package org.example;
