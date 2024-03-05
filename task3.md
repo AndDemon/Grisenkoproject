@@ -15,54 +15,53 @@ import java.io.Serializable;
 public class Calc implements Serializable, CalcDisplay {
     private static final long serialVersionUID = 1L;
     // Параметри
-    private double parameter1;
-    private double parameter2;
+    private double a;
+    private double b;
     // Результат
-    private double result;
+    private double output;
     // Конструктор
-    public Calc(double parameter1, double parameter2) {
-        this.parameter1 = parameter1;
-        this.parameter2 = parameter2;
+    public Calc(double a, double b) {
+        this.a = a;
+        this.b = b;
     }
     // Гетери і сетери
-    public double getParameter1() {
-        return parameter1;
+    public double getA() {
+        return a;
     }
 
-    public void setParameter1(double parameter1) {
-        this.parameter1 = parameter1;
+    public void setA(double a) {
+        this.a = a;
     }
 
-    public double getParameter2() {
-        return parameter2;
+    public double getB() {
+        return b;
     }
 
-    public void setParameter2(double parameter2) {
-        this.parameter2 = parameter2;
+    public void setB(double b) {
+        this.b = b;
     }
 
-    public double getResult() {
-        return result;
+    public double getOutput() {
+        return output;
     }
 
-    public void setResult(double result) {
-        this.result = result;
+    public void setResult(double output) {
+        this.output = output;
     }
 
     // Реалізація відображення параметрів обчислень
     @Override
     public void displayParameters(Calc data) {
-        System.out.println("Параметр 1: " + data.getParameter1());
-        System.out.println("Параметр 2: " + data.getParameter2());
+        System.out.println("Parameter 1: " + data.getA());
+        System.out.println("Parameter 2: " + data.getB());
     }
 
     // Реалізація відображення результатів обчислень
     @Override
     public void displayResult(Calc data) {
-        System.out.println("Результат: " + data.getResult());
+        System.out.println("Output: " + data.getOutput());
     }
 }
-
 ```
 
 
