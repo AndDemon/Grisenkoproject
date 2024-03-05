@@ -1,38 +1,46 @@
 package org.example;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Створення Problem_Solver
-        Problem_Solver solver = new Problem_Solver(60, 23);
+        // Створення списку для зберігання об'єктів
+        List<Calc> calculations = new ArrayList<>();
+        // Створення об'єктів та передача їм параметрів
+        Solv solver1 = new Solv(60, 3);
+        Solv solver2 = new Solv(23, 34);
 
-        // Виклик методу solve
-        solver.solve();
+        solver1.solve();
+        solver2.solve();
 
-        // Серіалізація
-        serializeObject(solver.getCalculationData(), "data.ser");
+        calculations.add(solver1.getCalculationData());
+        calculations.add(solver2.getCalculationData());
+        // Серіалізація списку
+        serializeObject(calculations, "data_collection.ser");
 
-        // Десеріалізація
-        Calc restoredData = deserializeObject("data.ser");
-
-        // Вивід результатів
-        System.out.println("Параметр 1: " + restoredData.getParameter1());
-        System.out.println("Параметр 2: " + restoredData.getParameter2());
-        System.out.println("Результат: " + restoredData.getResult());
+        // Десеріалізація об'єктів
+        List<Calc> restoredCalculations = deserializeObject("data_collection.ser");
+        // Виведення параметрів та результатів
+        for (Calc restoredData : restoredCalculations) {
+            restoredData.displayParameters(restoredData);
+            restoredData.displayResult(restoredData);
+            System.out.println("--------");
+        }
     }
-
-    private static void serializeObject(Calc data, String fileName) {
+    // Метод для серіалізації списку
+    private static void serializeObject(List<Calc> data, String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             outputStream.writeObject(data);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    private static Calc deserializeObject(String fileName) {
-        Calc data = null;
+    // Метод для десеріалізації
+    private static List<Calc> deserializeObject(String fileName) {
+        List<Calc> data = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
-            data = (Calc) inputStream.readObject();
+            data = (List<Calc>) inputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
