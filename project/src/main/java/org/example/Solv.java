@@ -1,27 +1,24 @@
 package org.example;
 
-public class Solv{
-    public Calc calculationData;
-    public double parameter_1;
-    public double parameter_2;
-    public double result;
+public class Solv {
+    public Calc data;
+    public double x;
+    public double y;
+    public double z;
 
-    public Solv(double parameter1, double parameter2) {
-        this.parameter_1 = parameter1;
-        this.parameter_2 = parameter2;
-        this.calculationData = new Calc(parameter1, parameter2);
+    public Solv(double a, double b) {
+        x = a;
+        y = b;
+        data = new Calc(a, b);
     }
-
     public void solve() {
-        result = parameter_1 - parameter_2;
-        calculationData.setResult(result);
+        z = x - y;
+        data.setResult(z);
     }
-
-    public Calc getCalculationData() {
-        return calculationData;
+    public Calc getData() {
+        return data;
     }
-
-    public void setCalculationData(Calc calculationData) {
-        this.calculationData = calculationData;
+    public void setData(Calc data) {
+        this.data = data;
     }
 }
