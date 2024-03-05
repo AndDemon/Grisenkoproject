@@ -13,16 +13,17 @@ import java.io.Serializable;
 
 public class Calc implements Serializable, CalcDisplay {
     private static final long serialVersionUID = 1L;
-
+    // Параметри
     private double parameter1;
     private double parameter2;
+    // Результат
     private double result;
-
+    // Конструктор
     public Calc(double parameter1, double parameter2) {
         this.parameter1 = parameter1;
         this.parameter2 = parameter2;
     }
-
+    // Гетери і сетери
     public double getParameter1() {
         return parameter1;
     }
@@ -47,17 +48,20 @@ public class Calc implements Serializable, CalcDisplay {
         this.result = result;
     }
 
+    // Реалізація відображення параметрів обчислень
     @Override
     public void displayParameters(Calc data) {
         System.out.println("Параметр 1: " + data.getParameter1());
         System.out.println("Параметр 2: " + data.getParameter2());
     }
 
+    // Реалізація відображення результатів обчислень
     @Override
     public void displayResult(Calc data) {
         System.out.println("Результат: " + data.getResult());
     }
 }
+
 ```
 
 ```java
@@ -98,8 +102,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        // Створення списку для зберігання об'єктів
         List<Calc> calculations = new ArrayList<>();
-
+        // Створення об'єктів та передача їм параметрів
         Solv solver1 = new Solv(60, 3);
         Solv solver2 = new Solv(23, 34);
 
@@ -108,18 +113,19 @@ public class Main {
 
         calculations.add(solver1.getCalculationData());
         calculations.add(solver2.getCalculationData());
-
+        // Серіалізація списку
         serializeObject(calculations, "data_collection.ser");
 
+        // Десеріалізація об'єктів
         List<Calc> restoredCalculations = deserializeObject("data_collection.ser");
-
+        // Виведення параметрів та результатів
         for (Calc restoredData : restoredCalculations) {
             restoredData.displayParameters(restoredData);
             restoredData.displayResult(restoredData);
             System.out.println("--------");
         }
     }
-
+    // Метод для серіалізації списку
     private static void serializeObject(List<Calc> data, String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             outputStream.writeObject(data);
@@ -127,7 +133,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-
+    // Метод для десеріалізації
     private static List<Calc> deserializeObject(String fileName) {
         List<Calc> data = null;
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
@@ -140,31 +146,37 @@ public class Main {
 }
 ```
 ![12](https://github.com/AndDemon/Grisenkoproject/assets/115999885/d82908ec-5cbe-4e55-bb00-2ad165232ad9)
-
+Виведення результатів
 ```java
 package org.example;
 
 public interface CalcDisplay {
+    //відображення параметрів обчислень
     void displayParameters(Calc data);
+    //відображення результатів обчислень
     void displayResult(Calc data);
 }
 ```
-
+фабричний метод
 ```java
 package org.example;
 
 public interface CalcFactory {
+    // створення об'єкту з переданими параметрами
     Calc createCalc(double parameter1, double parameter2);
 }
-```
 
+```
+ фабрикуючий методу
 ```java
 package org.example;
 
 public class CalcFactoryImpl implements CalcFactory {
+    //створення об'єкту класу
     @Override
     public Calc createCalc(double parameter1, double parameter2) {
         return new Calc(parameter1, parameter2);
     }
 }
+
 ```
