@@ -88,7 +88,7 @@ public class Main {
         solver.solve();
 
         // Серіалізація
-        serializeObject(solver.getCalculationData(), "data.ser");
+        serializeObject(solver.getData(), "data.ser");
 
         // Десеріалізація
         Calc restoredData = deserializeObject("data.ser");
