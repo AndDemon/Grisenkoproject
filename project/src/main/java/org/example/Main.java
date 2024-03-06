@@ -2,9 +2,11 @@ package org.example;
 import java.io.*;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        ExtCalcFactory factory = new ExtCalcFactoryImpl();
         // Створення списку для зберігання об'єктів
         List<Calc> calculations = new LinkedList<>();
         // Створення об'єктів та передача їм параметрів
@@ -17,15 +19,28 @@ public class Main {
         calculations.add(solver1.getData());
         calculations.add(solver2.getData());
         // Серіалізація списку
-        saveObject(calculations, "data_collection.ser");
+        TableDisplay tableDisplay = chooseTableDisplay();
 
-        // Десеріалізація об'єктів
-        List<Calc> restoredCalculations = loadObject("data_collection.ser");
-        // Виведення параметрів та результатів
-        for (Calc restoredData : restoredCalculations) {
-            restoredData.displayParameters(restoredData);
-            restoredData.displayResult(restoredData);
-            System.out.println("--------");
+        for (Calc data : calculations) {
+            tableDisplay.displayTable(data, new String[]{"Param1", "Param2", "Result"});
+        }
+    }
+    private static TableDisplay chooseTableDisplay() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Виберіть тип таблиці:");
+        System.out.println("1. Simple Table Display");
+        System.out.println("2. Fancy Table Display");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                return new SimpleTableDisplay();
+            case 2:
+                return new FancyTableDisplay();
+            default:
+                System.out.println("Невірний вибір. Використано Simple Table Display за замовчуванням.");
+                return new SimpleTableDisplay();
         }
     }
     // Метод для серіалізації списку
