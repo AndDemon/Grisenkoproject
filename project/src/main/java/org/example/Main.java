@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,14 +17,42 @@ public class Main {
         solver1.solve();
         solver2.solve();
 
+
+        CommandManager commandManager = CommandManager.getInstance();
+
+        // Використання макрокоманди для виконання та скасування команд
+        MacroCommand macroCommand = new MacroCommand();
+        macroCommand.addCommand(new SolveCommand(solver1));
+        macroCommand.addCommand(new SolveCommand(solver2));
+
+        commandManager.executeCommand(macroCommand);
         calculations.add(solver1.getData());
         calculations.add(solver2.getData());
-        // Серіалізація списку
+
         TableDisplay tableDisplay = chooseTableDisplay();
 
+        List<Runnable> parallelTasks = new ArrayList<>();
         for (Calc data : calculations) {
-            tableDisplay.displayTable(data, new String[]{"Param1", "Param2", "Result"});
+            Runnable task = () -> tableDisplay.displayTable(data, new String[]{"Param1", "Param2", "Result"});
+            parallelTasks.add(task);
         }
+
+        // Using ParallelProcessor for parallel execution
+        ParallelProcessor parallelProcessor = new ParallelProcessor(2);
+        parallelProcessor.processTasks(parallelTasks);
+        parallelProcessor.awaitTermination();
+
+        // Using TaskQueue for task queue management
+        TaskQueue taskQueue = new TaskQueue();
+        for (Runnable task : parallelTasks) {
+            taskQueue.submitTask(task);
+        }
+
+        // Undo the last command
+        commandManager.undoLastCommand();
+
+        // Shutdown the TaskQueue
+        taskQueue.shutdown();
     }
     private static TableDisplay chooseTableDisplay() {
         Scanner scanner = new Scanner(System.in);
