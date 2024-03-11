@@ -5,7 +5,7 @@ public interface Command {
     void undo();
 }
 
-// Реалізація конкретної команди для обчислення
+
 class SolveCommand implements Command {
     private Solv solver;
 
@@ -20,23 +20,20 @@ class SolveCommand implements Command {
 
     @Override
     public void undo() {
-        // Скасування операції solve необхідно для скасування результату
+
         solver.getData().setResult(Double.NaN);
     }
 }
 
-// Реалізація конкретної команди для зміни параметрів обчислення
+
 class ChangeParamsCommand implements Command {
     private Solv solver;
-    private double oldX;
-    private double oldY;
+    private double oldSideLength;
 
-    public ChangeParamsCommand(Solv solver, double newX, double newY) {
+    public ChangeParamsCommand(Solv solver, double newSideLength) {
         this.solver = solver;
-        this.oldX = solver.x;
-        this.oldY = solver.y;
-        solver.x = newX;
-        solver.y = newY;
+        this.oldSideLength = solver.sideLength;
+        solver.sideLength = newSideLength;
     }
 
     @Override
@@ -46,8 +43,7 @@ class ChangeParamsCommand implements Command {
 
     @Override
     public void undo() {
-        solver.x = oldX;
-        solver.y = oldY;
+        solver.sideLength = oldSideLength;
         solver.getData().setResult(Double.NaN);
     }
 }

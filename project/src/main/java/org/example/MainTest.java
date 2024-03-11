@@ -1,33 +1,46 @@
 package org.example;
 
-
 public class MainTest {
     public static void main(String[] args) {
-        testSimpleTableDisplay();
-        testFancyTableDisplay();
+        testMainFunctionality();
     }
 
-    private static void testSimpleTableDisplay() {
-        System.out.println("Testing Simple:");
-        ExtCalcFactory factory = new ExtCalcFactoryImpl();
-
-        Solv solver = new Solv(10, 23);
-        solver.solve();
-        Calc data = solver.getData();
+    private static void testMainFunctionality() {
+        System.out.println("Testing Main Functionality:");
+        Solv solver = new Solv();
+        solver.calculateAreas();
 
         TableDisplay tableDisplay = new SimpleTableDisplay();
-        tableDisplay.displayTable(data, new String[]{"Param1", "Param2", "Result"});
+        System.out.println("\nInitial Results:");
+        tableDisplay.displayTable(solver.getData(), new String[]{"Triangle Area", "Square Area", "Total Area"});
+
+
+        executeChangeParamsCommand(solver, 15.0);
+
+
+        undoLastCommand(solver);
+
+
+        System.out.println("\nUpdated Results:");
+        tableDisplay.displayTable(solver.getData(), new String[]{"Triangle Area", "Square Area", "Total Area"});
     }
 
-    private static void testFancyTableDisplay() {
-        System.out.println("Testing Fancy:");
-        ExtCalcFactory factory = new ExtCalcFactoryImpl();
+    private static void executeChangeParamsCommand(Solv solver, double newSideLength) {
+        CommandManager commandManager = CommandManager.getInstance();
 
-        Solv solver = new Solv(20, 4);
-        solver.solve();
-        Calc data = solver.getData();
 
-        TableDisplay tableDisplay = new FancyTableDisplay();
-        tableDisplay.displayTable(data, new String[]{"Param1", "Param2", "Result"});
+        ChangeParamsCommand changeParamsCommand = new ChangeParamsCommand(solver, newSideLength);
+        commandManager.executeCommand(changeParamsCommand);
+
+        System.out.println("\nResults After Changing Parameters:");
+    }
+
+    private static void undoLastCommand(Solv solver) {
+        CommandManager commandManager = CommandManager.getInstance();
+
+
+        commandManager.undoLastCommand();
+
+        System.out.println("\nResults After Undoing Last Command:");
     }
 }
