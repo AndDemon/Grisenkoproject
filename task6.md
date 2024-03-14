@@ -174,4 +174,67 @@ public class Main {
 }
 
 ```
+
+```java
+ackage org.example;
+
+public class MainTest {
+    public static void main(String[] args) {
+        testMainFunctionality();
+    }
+
+    private static void testMainFunctionality() {
+        // Виведення повідомлення про тестування основного функціоналу
+        System.out.println("Тестування основного функціоналу:");
+        // Створення об'єкта solver класу Solv
+        Solv solver = new Solv();
+        // Виклик методу для розрахунку площ
+        solver.calculateAreas();
+
+        // Створення об'єкта tableDisplay класу SimpleTableDisplay
+        TableDisplay tableDisplay = new SimpleTableDisplay();
+        // Виведення початкових результатів
+        System.out.println("\nПочаткові результати:");
+        // Відображення даних у вигляді таблиці
+        tableDisplay.displayTable(solver.getData(), new String[]{"Трикутник", "Прямокутник", "Сума площ"});
+
+        // Виклик методу для зміни параметрів
+        executeChangeParamsCommand(solver, 15.0);
+
+        // Виклик методу для скасування останньої команди
+        undoLastCommand(solver);
+
+        // Виведення результатів після зміни параметрів
+        System.out.println("\nРезультати після зміни параметрів:");
+        // Відображення оновлених даних у вигляді таблиці
+        tableDisplay.displayTable(solver.getData(), new String[]{"Трикутник", "Прямокутник", "Сума площ"});
+    }
+
+    private static void executeChangeParamsCommand(Solv solver, double newSideLength) {
+        // Отримання екземпляра CommandManager
+        CommandManager commandManager = CommandManager.getInstance();
+
+        // Створення команди для зміни параметрів
+        ChangeParamsCommand changeParamsCommand = new ChangeParamsCommand(solver, newSideLength);
+        // Виконання команди
+        commandManager.executeCommand(changeParamsCommand);
+
+        // Виведення результатів після зміни параметрів
+        System.out.println("\nРезультати після скасування останньої команди:");
+    }
+
+    private static void undoLastCommand(Solv solver) {
+        // Отримання екземпляра CommandManager
+        CommandManager commandManager = CommandManager.getInstance();
+
+        // Скасування останньої команди
+        commandManager.undoLastCommand();
+
+        // Виведення результатів після скасування останньої команди
+        System.out.println("\nResults After Undoing Last Command:");
+    }
+}
+```
+
+
 трошки підладнав код під завдання
